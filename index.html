@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ERSALIYAH LOGISTIC</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+      }
+      .container {
+        width: 600px;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid #2a7eba;
+      }
+      h2 {
+        margin: 0px;
+      }
+      .row {
+        display: flex !important;
+      }
+      .mt-1 {
+        margin-top: 0.25rem !important;
+      }
+      .mt-2 {
+        margin-top: 0.5rem !important;
+      }
+      .mt-3 {
+        margin-top: 1rem !important;
+      }
+      .mt-4 {
+        margin-top: 1.5rem !important;
+      }
+      .mt-5 {
+        margin-top: 2rem !important;
+      }
+      .mt-6 {
+        margin-top: 2.5rem !important;
+      }
+      .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+      .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+      .col-md-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+      }
+      .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+      .text-right {
+        text-align: right !important;
+      }
+      .text-align-center {
+        text-align: center !important;
+      }
+      .title {
+        color: #2a7eba;
+        font-family: Arial;
+        font-style: italic;
+        font-size: 20px;
+      }
+      .label {
+        color: #5996cc;
+        font-family: Arial;
+        font-size: 18px;
+        font-weight: normal;
+      }
+      /* Input styling */
+      input[type="text"],
+      input[type="number"],
+      input[type="email"],
+      textarea {
+        width: 70%;
+        padding: 5px;
+        font-size: 16px;
+        color: #333;
+        border: 1px solid #2a7eba;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        font-family: "Arial", sans-serif;
+      }
+
+      /* Focus effect */
+      input[type="text"]:focus,
+      input[type="number"]:focus,
+      input[type="email"]:focus,
+      textarea:focus {
+        border-color: #0056a3; /* Matches the logo's blue shade */
+        box-shadow: 0 0 5px rgba(0, 86, 163, 0.3);
+      }
+
+      input[type="radio"] {
+        accent-color: #2a7eba;
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+      }
+
+      /* Placeholder styling */
+      input::placeholder,
+      textarea::placeholder {
+        color: #a3a3a3;
+        font-style: italic;
+      }
+
+      .align-items-center {
+        align-items: center !important;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header img {
+        width: 80px;
+      }
+      .custom-list {
+        list-style-type: none; /* Remove default bullet */
+        padding-left: 0;
+      }
+
+      .custom-list li {
+        position: relative;
+        padding-right: 20px; /* Space for the custom bullet at the end */
+      }
+
+      /* Custom bullet at the end */
+      .custom-list li::after {
+        content: "•"; /* Bullet character */
+        font-size: 1.2em;
+        color: #2a7eba; /* Bullet color */
+        position: absolute;
+        right: 0;
+        top: -3px;
+      }
+      .submit-btn {
+        padding: 10px;
+        border-radius: 11px;
+        background: white;
+        border: 2px solid #2a7eba;
+        color: #2a7eba;
+        font-size: 17px;
+        font-weight: bold;
+      }
+      .submit-btn:hover {
+        background-color: #2a7eba;
+        border: 2px solid #fff;
+        color: #fff;
+        cursor: pointer;
+      }
+      .footer {
+        font-size: 0.8em;
+        margin-top: 50px;
+      }
+      .footer p {
+        margin: 0px;
+      }
+      .footer img {
+        width: 140px;
+        margin-top: 10px;
+      }
+      #loader {
+        border: 8px solid #f3f3f3; /* Light grey */
+        border-top: 8px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 50px; /* Size of the spinner */
+        height: 50px; /* Size of the spinner */
+        animation: spin 1s linear infinite; /* Animation for spinning */
+        position: absolute; /* Position it absolutely */
+        top: 50%; /* Center it vertically */
+        left: 50%; /* Center it horizontally */
+        transform: translate(-50%, -50%); /* Adjust positioning */
+      }
+
+      /* Spin animation */
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Overlay to prevent interactions */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7); /* Light overlay */
+        display: none; /* Hidden by default */
+        z-index: 999; /* On top of other elements */
+      }
+    </style>
+  </head>
+  <script>
+    function sendForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+      const form = document.getElementById("contact-form");
+      const loader = document.getElementById("loader");
+      const overlay = document.getElementById("overlay");
+      loader.style.display = "block";
+      overlay.style.display = "block";
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+      })
+        .then((response) => {
+          loader.style.display = "none";
+          overlay.style.display = "none";
+          if (response.ok) {
+            document.getElementById("success-message").style.display = "block"; // Show success message
+            setTimeout(() => {
+              document.getElementById("success-message").style.display = "none";
+            }, 3000);
+            form.reset(); // Reset form fields
+          } else {
+            alert(
+              "There was an error submitting the form. Please try again later."
+            );
+          }
+        })
+        .catch((error) => {
+          loader.style.display = "none";
+          overlay.style.display = "none";
+          alert(
+            "There was an error submitting the form. Please try again later."
+          );
+        });
+
+      return false; // Prevent form submission
+    }
+  </script>
+
+  <body>
+    <div class="overlay" id="overlay"></div>
+    <!-- Overlay to block interactions -->
+    <div class="container">
+      <div class="header">
+        <img src="logo.png" alt="Logo" />
+      </div>
+      <form
+        id="contact-form"
+        action="https://script.google.com/macros/s/AKfycbyseGE-RBbCJK4yQA5e5R4FvjNvJGrrJE-xpM3TufmWfRUynTEvKum-RYfg_bxZzRCL_w/exec"
+        method="post"
+        onsubmit="return sendForm(event);"
+      >
+        <div class="row">
+          <div class="col-md-9">
+            <h2 class="title">Customer Information:</h2>
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="title">:بيانات العميل</h2>
+          </div>
+        </div>
+
+        <div class="row mt-3 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Name</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="text" name="name" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">الاسم</h2>
+          </div>
+        </div>
+
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Phone</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="text" name="phone" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">رقم الجوال</h2>
+          </div>
+        </div>
+
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Email</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="email" name="email" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">الإيميل</h2>
+          </div>
+        </div>
+
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Address</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="text" name="address" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">العنوان</h2>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-9">
+            <h2 class="title">Shipment Information:</h2>
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="title">:بيانات الشحنة</h2>
+          </div>
+        </div>
+
+        <div class="row mt-3 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Product</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="text" name="product" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">المنتج</h2>
+          </div>
+        </div>
+
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Quantity</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input type="number" name="quantity" min="1" required />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">العدد</h2>
+          </div>
+        </div>
+
+        <div class="row mt-2 align-items-center">
+          <div class="col-md-3">
+            <h2 class="label">Booth number</h2>
+          </div>
+          <div class="col-md-6 text-align-center">
+            <input
+              type="number"
+              name="booth_number"
+              min="1"
+              required
+            />
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="label">رقم البوث</h2>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-9">
+            <h2 class="title">Delivery Time:</h2>
+          </div>
+          <div class="col-md-3 text-right">
+            <h2 class="title">:وقت التوصيل</h2>
+          </div>
+        </div>
+
+        <div class="text-align-center mt-3">
+          <div class="label">
+            <label for="time1">From 08 am - 12 pm من الساعه</label>
+            <input
+              type="radio"
+              value="From 08 am - 12 pm من الساعه"
+              name="delivery_time"
+              id="time1"
+              required
+            />
+          </div>
+          <div class="label mt-2">
+            <label for="time2">From 01 pm - 05 pm من الساعه</label>
+            <input
+              type="radio"
+              value="From 01 pm - 05 pm من الساعه"
+              name="delivery_time"
+              id="time2"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-align-center mt-6">
+          <button type="submit" class="submit-btn">Submit</button>
+        </div>
+      </form>
+
+      <div id="success-message" style="display: none; color: green">
+        Form submitted successfully!
+      </div>
+
+      <!-- Loader -->
+      <div id="loader" style="display: none"></div>
+
+      <div class="text-right mt-6 label">
+        <ul class="custom-list">
+          <li>التوصيل مجاناً داخل الرياض فقط</li>
+        </ul>
+      </div>
+
+      <div class="footer text-align-center">
+        <p class="label">Ersaliyah.sa</p>
+        <p class="label mt-2">0533390174</p>
+        <img src="footer-logo.png" />
+      </div>
+    </div>
+  </body>
+</html>
