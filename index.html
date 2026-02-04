@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -90,7 +90,9 @@
         border: 1px solid #2a7eba;
         border-radius: 5px;
         outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
         font-family: "Arial", sans-serif;
       }
 
@@ -220,9 +222,9 @@
       fetch(form.action, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams(new FormData(form))
+        body: new URLSearchParams(new FormData(form)),
       })
         .then((response) => {
           loader.style.display = "none";
@@ -235,7 +237,7 @@
             form.reset(); // Reset form fields
           } else {
             alert(
-              "There was an error submitting the form. Please try again later."
+              "There was an error submitting the form. Please try again later.",
             );
           }
         })
@@ -243,7 +245,7 @@
           loader.style.display = "none";
           overlay.style.display = "none";
           alert(
-            "There was an error submitting the form. Please try again later."
+            "There was an error submitting the form. Please try again later.",
           );
         });
 
@@ -260,7 +262,7 @@
       </div>
       <form
         id="contact-form"
-        action="https://script.google.com/macros/s/AKfycbz7wnoA5gxi-B8Y2GChzFrevz-9Wbz6BdzZZPlUiM8wvqu-RR3wUgwIVA6ttYWU8YTu/exec"
+        action="/.netlify/functions/sendMail"
         method="post"
         onsubmit="return sendForm(event);"
       >
@@ -290,7 +292,13 @@
             <h2 class="label">Phone</h2>
           </div>
           <div class="col-md-6 text-align-center">
-            <input type="text" name="phone" pattern="^05\d{8,}$" title="Phone number must start with 05 and be at least 10 digits" required />
+            <input
+              type="text"
+              name="phone"
+              pattern="^05\d{8,}$"
+              title="Phone number must start with 05 and be at least 10 digits"
+              required
+            />
           </div>
           <div class="col-md-3 text-right">
             <h2 class="label">رقم الجوال</h2>
@@ -359,12 +367,7 @@
             <h2 class="label">Booth number</h2>
           </div>
           <div class="col-md-6 text-align-center">
-            <input
-              type="number"
-              name="booth_number"
-              min="1"
-              required
-            />
+            <input type="number" name="booth_number" min="1" required />
           </div>
           <div class="col-md-3 text-right">
             <h2 class="label">رقم البوث</h2>
@@ -429,4 +432,3 @@
     </div>
   </body>
 </html>
-
