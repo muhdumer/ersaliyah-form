@@ -3,7 +3,7 @@ exports.handler = async (event) => {
     const params = new URLSearchParams(event.body);
 
     await fetch(
-      "https://script.google.com/macros/s/AKfycbyseGE-RBbCJK4yQA5e5R4FvjNvJGrrJE-xpM3TufmWfRUynTEvKum-RYfg_bxZzRCL_w/exec",
+      "https://script.google.com/macros/s/AKfycbz7wnoA5gxi-B8Y2GChzFrevz-9Wbz6BdzZZPlUiM8wvqu-RR3wUgwIVA6ttYWU8YTu/exec",
       {
         method: "POST",
         body: params,
